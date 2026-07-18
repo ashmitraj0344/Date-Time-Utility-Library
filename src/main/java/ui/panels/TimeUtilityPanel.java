@@ -76,4 +76,36 @@ public class TimeUtilityPanel extends JPanel implements ThemeManager.ThemeListen
         ThemeManager.addThemeListener(this);
         onThemeChanged(ThemeManager.isDarkMode());
     }
+ private RoundedPanel createCurrentTimeCard() {
+        RoundedPanel card = new RoundedPanel(15);
+        card.setLayout(new BorderLayout(10, 10));
+        card.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
+        JLabel title = new JLabel("Current Time");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        timeDisplay = new JLabel("00:00:00 AM");
+        timeDisplay.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        timeDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JPanel controls = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        controls.setOpaque(false);
+        twelveHrRadio = new JRadioButton("12h", true);
+        twentyFourHrRadio = new JRadioButton("24h");
+        ButtonGroup group = new ButtonGroup();
+        group.add(twelveHrRadio);
+        group.add(twentyFourHrRadio);
+        controls.add(twelveHrRadio);
+        controls.add(twentyFourHrRadio);
+
+        Timer t = new Timer(1000, e -> {
+            String format = twelveHrRadio.isSelected() ? "hh:mm:ss a" : "HH:mm:ss";
+            timeDisplay.setText(TimeUtility.getCurrentTime(format));
+        });
+        t.start();
+
+        card.add(title, BorderLayout.NORTH);
+        card.add(timeDisplay, BorderLayout.CENTER);
+        card.add(controls, BorderLayout.SOUTH);
+        return card;
+    }
