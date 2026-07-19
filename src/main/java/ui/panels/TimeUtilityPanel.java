@@ -109,3 +109,60 @@ public class TimeUtilityPanel extends JPanel implements ThemeManager.ThemeListen
         card.add(controls, BorderLayout.SOUTH);
         return card;
     }
+
+ private RoundedPanel createStopwatchCard() {
+        RoundedPanel card = new RoundedPanel(15);
+        card.setLayout(new BorderLayout(5, 5));
+        card.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+
+        JLabel title = new JLabel("Stopwatch");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        stopwatchDisplay = new JLabel("00:00:00.000");
+        stopwatchDisplay.setFont(new Font("Segoe UI", Font.BOLD, 22));
+        stopwatchDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+
+        lapListModel = new DefaultListModel<>();
+        lapList = new JList<>(lapListModel);
+        JScrollPane scroll = new JScrollPane(lapList);
+        scroll.setPreferredSize(new Dimension(100, 60));
+        scroll.setBorder(BorderFactory.createLineBorder(ThemeManager.getBorder()));
+
+        JPanel btns = new JPanel(new GridLayout(1, 4, 2, 0));
+        btns.setOpaque(false);
+        ModernButton startBtn = new ModernButton("Start");
+        ModernButton stopBtn = new ModernButton("Stop");
+        ModernButton lapBtn = new ModernButton("Lap");
+        ModernButton resetBtn = new ModernButton("Reset");
+
+        stopwatchTimer = new Timer(10, e -> {
+            long now = System.currentTimeMillis();
+            long elapsed = stopwatchElapsedTime + (now - stopwatchStartTime);
+            long ms = elapsed % 1000;
+            long secs = (elapsed / 1000) % 60;
+            long mins = (elapsed / 60000) % 60;
+            long hrs = (elapsed / 3600000);
+            stopwatchDisplay.setText(String.format("%02d:%02d:%02d.%03d", hrs, mins, secs, ms));
+        });
+
+        startBtn.addActionListener(e -> {
+            if (!stopwatchRunning) {
+                stopwatchStartTime = System.currentTimeMillis();
+                stopwatchTimer.start();
+                stopwatchRunning = true;
+            }
+        });
+
+        stopBtn.addActionListener(e -> {
+            if (stopwatchRunning) {
+                stopwatchElapsedTime += (System.currentTimeMillis() - stopwatchStartTime);
+                stopwatchTimer.stop();
+                stopwatchRunning = false;
+            }
+        });
+
+        lapBtn.addActionListener(e -> {
+            if (stopwatchRunning) {
+                lapListModel.addElement(stopwatchDisplay.getText());
+            }
+        });
