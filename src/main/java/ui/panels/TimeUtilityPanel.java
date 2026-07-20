@@ -259,3 +259,146 @@ public class TimeUtilityPanel extends JPanel implements ThemeManager.ThemeListen
                 }
             }
         });
+
+        pauseBtn.addActionListener(e -> {
+            if (countdownRunning) {
+                countdownTimer.stop();
+                countdownRunning = false;
+            }
+        });
+
+        resetBtn.addActionListener(e -> {
+            countdownTimer.stop();
+            countdownRunning = false;
+            countdownTotalSeconds = 0;
+            countdownRemainingSeconds = 0;
+            countdownDisplay.setText("00:00:00");
+            countdownProgress.setValue(100);
+        });
+
+        btns.add(startBtn);
+        btns.add(pauseBtn);
+        btns.add(resetBtn);
+
+        JPanel centerPanel = new JPanel(new BorderLayout(5, 5));
+        centerPanel.setOpaque(false);
+        centerPanel.add(setupPanel, BorderLayout.NORTH);
+        centerPanel.add(countdownDisplay, BorderLayout.CENTER);
+        centerPanel.add(countdownProgress, BorderLayout.SOUTH);
+
+        card.add(title, BorderLayout.NORTH);
+        card.add(centerPanel, BorderLayout.CENTER);
+        card.add(btns, BorderLayout.SOUTH);
+        return card;
+    }
+
+    private RoundedPanel createTimeDifferenceCard() {
+        RoundedPanel card = new RoundedPanel(15);
+        card.setLayout(new BorderLayout(5, 5));
+        card.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+
+        JLabel title = new JLabel("Time Difference");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        JPanel body = new JPanel(new GridLayout(3, 1, 2, 2));
+        body.setOpaque(false);
+        JTextField t1 = new JTextField("09:00");
+        JTextField t2 = new JTextField("17:30");
+        JLabel result = new JLabel("Difference: -");
+        result.setFont(new Font("Segoe UI", Font.BOLD, 11));
+        body.add(t1);
+        body.add(t2);
+        body.add(result);
+
+        ModernButton btn = new ModernButton("Calculate");
+        btn.setPreferredSize(new Dimension(100, 30));
+        btn.addActionListener(e -> {
+            result.setText("Diff: " + TimeUtility.getTimeDifference(t1.getText(), t2.getText()));
+        });
+
+        card.add(title, BorderLayout.NORTH);
+        card.add(body, BorderLayout.CENTER);
+        card.add(btn, BorderLayout.SOUTH);
+        return card;
+    }
+
+    private RoundedPanel createConverterCard() {
+        RoundedPanel card = new RoundedPanel(15);
+        card.setLayout(new BorderLayout(5, 5));
+        card.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+
+        JLabel title = new JLabel("12h / 24h Converter");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        JPanel body = new JPanel(new GridLayout(2, 1, 5, 5));
+        body.setOpaque(false);
+        JTextField input = new JTextField("14:45");
+        JLabel result = new JLabel("Result: -");
+        result.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        body.add(input);
+        body.add(result);
+
+        ModernButton btn = new ModernButton("Convert");
+        btn.setPreferredSize(new Dimension(100, 30));
+        btn.addActionListener(e -> {
+            result.setText("Converted: " + TimeUtility.convertTimeFormat(input.getText()));
+        });
+
+        card.add(title, BorderLayout.NORTH);
+        card.add(body, BorderLayout.CENTER);
+        card.add(btn, BorderLayout.SOUTH);
+        return card;
+    }
+
+    private RoundedPanel createAddSubtractTimeCard() {
+        RoundedPanel card = new RoundedPanel(15);
+        card.setLayout(new BorderLayout(5, 5));
+        card.setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+
+        JLabel title = new JLabel("Add/Subtract Time");
+        title.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        JPanel body = new JPanel(new GridLayout(3, 1, 2, 2));
+        body.setOpaque(false);
+        JTextField timeField = new JTextField("10:00");
+        JSpinner offsetSpinner = new JSpinner(new SpinnerNumberModel(45, -1440, 1440, 15));
+        JLabel result = new JLabel("Result: -");
+        result.setFont(new Font("Segoe UI", Font.BOLD, 13));
+        body.add(timeField);
+        body.add(offsetSpinner);
+        body.add(result);
+
+        ModernButton btn = new ModernButton("Calculate");
+        btn.setPreferredSize(new Dimension(100, 30));
+        btn.addActionListener(e -> {
+            String time = timeField.getText();
+            int offset = (int) offsetSpinner.getValue();
+            result.setText("Result: " + TimeUtility.addSubtractMinutes(time, offset));
+        });
+
+        card.add(title, BorderLayout.NORTH);
+        card.add(body, BorderLayout.CENTER);
+        card.add(btn, BorderLayout.SOUTH);
+        return card;
+    }
+
+    @Override
+    public void onThemeChanged(boolean isDark) {
+        Color textPrimary = ThemeManager.getTextPrimary();
+        Color textSecondary = ThemeManager.getTextSecondary();
+        headerTitle.setForeground(textPrimary);
+        headerSubtitle.setForeground(textSecondary);
+
+        // Sub components colors update
+        if (twelveHrRadio != null) {
+            twelveHrRadio.setForeground(textPrimary);
+            twelveHrRadio.setOpaque(false);
+            twentyFourHrRadio.setForeground(textPrimary);
+            twentyFourHrRadio.setOpaque(false);
+        }
+        if (lapList != null) {
+            lapList.setBackground(ThemeManager.getSidebarBackground());
+            lapList.setForeground(textPrimary);
+        }
+    }
+}
