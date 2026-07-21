@@ -124,9 +124,10 @@ Follow these steps to run the project from scratch on your local machine:
    ```
 
 4. **Run the project**
-   You can run the application directly through Maven:
+   You can compile and run the application directly using `javac` and `java`:
    ```bash
-   mvn exec:java -Dexec.mainClass="app.Main"
+   javac -d target -sourcepath src/main/java src/main/java/app/Main.java
+   java -cp target app.Main
    ```
    *Alternatively, open the project in your favorite IDE and run `app.Main.java`.*
 
@@ -152,11 +153,11 @@ Follow these steps to run the project from scratch on your local machine:
 
 ## Screenshots
 
-Place the screenshots of your application in the `docs/images/` folder to display them here:
+Place the screenshots of your application in the `docs/screenshots/` folder to display them here:
 
 | Dashboard | Add Event | Time Utilities |
 | :---: | :---: | :---: |
-| ![Dashboard](docs/images/dashboard.png) | ![Add Event](docs/images/add_event.png) | ![Time Utilities](docs/images/time_utility.png) |
+| ![Dashboard](docs/screenshots/Dashboard.png) | ![Add Event](docs/screenshots/Add%20Events.png) | ![Time Utilities](docs/screenshots/Time%20Utilities.png) |
 
 ---
 
