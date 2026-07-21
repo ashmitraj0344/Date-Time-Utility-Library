@@ -163,7 +163,7 @@ public class SettingsPanel extends JPanel implements ThemeManager.ThemeListener 
         JPanel details = new JPanel(new GridLayout(2, 1, 2, 2));
         details.setOpaque(false);
 
-        JLabel groupLbl = new JLabel("Group ID: Group - 04");
+        JLabel groupLbl = new JLabel("Group ID: User/team-04");
         groupLbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 
         JLabel courseLbl = new JLabel("Course: JAVA Programming with GenAI And System Design Live");
