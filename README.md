@@ -55,7 +55,7 @@ The Date-Time Utility Library is a comprehensive desktop application that combin
 - **Build Tool**: Maven
 - **Database**: Flat-file storage (`events_data.txt`) - No external SQL/NoSQL required.
 - **Dependencies**: None (Core Java only)
-- **IDE**: Any Java IDE (IntelliJ IDEA, Eclipse, VS Code)
+- **IDE**: Any Java IDE (IntelliJ IDEA, Eclipse, VS Code).
 
 ---
 
@@ -63,7 +63,7 @@ The Date-Time Utility Library is a comprehensive desktop application that combin
 
 ```text
 Date-Time-Utility-Library
-├── docs/                   # Documentation and images
+├── docs/                   # Documentation and images.
 ├── src/main/java/
 │   ├── app/
 │   │   └── Main.java
