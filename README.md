@@ -1,4 +1,4 @@
-# Date-Time Utility Library + Event Scheduler
+# Date-Time Utility Library + Event Scheduler.
 
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)](#)
 [![Java Version](https://img.shields.io/badge/Java-17-blue.svg)](https://www.oracle.com/java/)
@@ -9,7 +9,7 @@
 
 The Date-Time Utility Library is a comprehensive desktop application that combines time calculation utilities (like age calculation and time format conversions) with a robust event scheduler. It features a modern, clean UI with sidebar navigation, theme support, and a background daemon for real-time event reminders.
 
----
+-----
 
 ## Preview
 
@@ -17,7 +17,7 @@ The Date-Time Utility Library is a comprehensive desktop application that combin
 ![App Preview](docs/images/preview.gif)  
 *(Note: Ensure `docs/images/preview.gif` is present to display the preview).*
 
----
+-----
 
 ## Features
 
