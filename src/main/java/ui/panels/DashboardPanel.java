@@ -33,7 +33,7 @@ public class DashboardPanel extends JPanel implements ThemeManager.ThemeListener
     private RoundedPanel reminderCard;
     private RoundedPanel quickActionsCard;
 
-    private String profileName = "User/team-04";
+    private String profileName = "USER";
 
     public interface FrameNavigation {
         void navigateTo(String tabName);
